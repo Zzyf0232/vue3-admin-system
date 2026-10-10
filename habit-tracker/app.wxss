@@ -1,0 +1,8 @@
+/* app.wxss —— 全局样式 */
+page {
+  background: #F1F5F2;
+  color: #22312B;
+  font-size: 28rpx;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
