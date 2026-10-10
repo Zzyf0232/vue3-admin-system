@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>贪吃蛇游戏</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="game-container">
+    <h1>贪吃蛇</h1>
+
+    <div class="score-panel">
+      <div class="score-item">
+        <span class="score-label">当前得分</span>
+        <span class="score-value" id="score">0</span>
+      </div>
+      <div class="score-item">
+        <span class="score-label">最高分</span>
+        <span class="score-value" id="highScore">0</span>
+      </div>
+      <div class="score-item">
+        <span class="score-label">速度等级</span>
+        <span class="score-value" id="level">1</span>
+      </div>
+    </div>
+
+    <div class="canvas-wrapper">
+      <canvas id="gameCanvas" width="400" height="400"></canvas>
+      <div class="overlay" id="overlay">
+        <div class="overlay-content">
+          <h2 id="overlayTitle">贪吃蛇</h2>
+          <p id="overlayText">按方向键或 WASD 开始游戏</p>
+          <button class="btn" id="startBtn">开始游戏</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="controls-info">
+      <div class="control-group">
+        <span class="key">↑</span>
+        <span class="key">↓</span>
+        <span class="key">←</span>
+        <span class="key">→</span>
+        <span class="control-desc">方向键控制移动</span>
+      </div>
+      <div class="control-group">
+        <span class="key">W</span>
+        <span class="key">A</span>
+        <span class="key">S</span>
+        <span class="key">D</span>
+        <span class="control-desc">WASD 控制</span>
+      </div>
+      <div class="control-group">
+        <span class="key">空格</span>
+        <span class="control-desc">暂停 / 继续</span>
+      </div>
+    </div>
+
+    <div class="mobile-controls">
+      <button class="dir-btn up" data-dir="up">▲</button>
+      <button class="dir-btn left" data-dir="left">◀</button>
+      <button class="dir-btn right" data-dir="right">▶</button>
+      <button class="dir-btn down" data-dir="down">▼</button>
+    </div>
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>
