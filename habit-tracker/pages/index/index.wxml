@@ -1,0 +1,206 @@
+<view class="page">
+
+  <!-- ===== Hero：日期 + 统计 ===== -->
+  <view class="hero">
+    <view class="date-block">
+      <view class="date-num">{{todayNum}}</view>
+      <view class="date-info">
+        <view class="date-title">{{todayTitle}}</view>
+        <view class="date-sub">今天完成 <text class="b">{{todayDone}}</text> / <text class="b">{{todayTotal}}</text> 项习惯</view>
+        <view class="date-hint">{{todayHint}}</view>
+      </view>
+    </view>
+
+    <view class="stats">
+      <view class="stat">
+        <view class="ring" style="background: conic-gradient(#2E7D5B {{ringPct}}%, #E6EDE8 0)">
+          <view class="ring-inner"><text class="ring-txt">{{ringTxt}}</text></view>
+        </view>
+        <view class="stat-label">今日完成率</view>
+      </view>
+      <view class="stat">
+        <view class="stat-value accent">{{streakVal}}<text class="unit"> 天</text></view>
+        <view class="stat-label">连续全勤</view>
+        <view class="stat-foot">{{streakFoot}}</view>
+      </view>
+      <view class="stat">
+        <view class="stat-value">{{monthCount}}<text class="unit"> 次</text></view>
+        <view class="stat-label">本月打卡</view>
+        <view class="stat-foot">{{monthFoot}}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- ===== 今日打卡 ===== -->
+  <view class="section">
+    <view class="sec-head"><view class="sec-title">今日打卡</view></view>
+    <view wx:if="{{!hasHabits}}" class="empty">还没有习惯。点击下方按钮添加第一个习惯，开始每日打卡。</view>
+    <view wx:else class="habit-grid">
+      <view
+        wx:for="{{habitCards}}"
+        wx:key="id"
+        class="habit-card {{item.done ? 'done' : ''}}"
+        hover-class="card-hover"
+        bindtap="toggleHabit"
+        data-id="{{item.id}}"
+      >
+        <view class="habit-icon" style="background: {{item.bg}}">
+          <image class="icon-img" src="{{item.iconSrc}}" mode="aspectFit"></image>
+        </view>
+        <view class="habit-info">
+          <view class="habit-name">{{item.name}}</view>
+          <view class="habit-meta">累计 {{item.total}} 次</view>
+        </view>
+        <view class="check">
+          <view class="tick" wx:if="{{item.done}}"></view>
+        </view>
+      </view>
+    </view>
+    <view class="add-btn" hover-class="card-hover" bindtap="openAdd">＋ 添加新习惯</view>
+  </view>
+
+  <!-- ===== 本月坚持 ===== -->
+  <view class="section">
+    <view class="sec-head">
+      <view class="sec-title">本月坚持</view>
+      <view class="month-nav">
+        <view class="nav-btn {{prevDisabled ? 'dis' : ''}}" bindtap="prevMonth">‹</view>
+        <view class="m-label">{{monthLabel}}</view>
+        <view class="nav-btn {{nextDisabled ? 'dis' : ''}}" bindtap="nextMonth">›</view>
+      </view>
+    </view>
+
+    <view class="cal-grid">
+      <view wx:for="{{dows}}" wx:key="*this" class="cal-dow {{item === '六' || item === '日' ? 'weekend' : ''}}">{{item}}</view>
+      <view wx:for="{{calCells}}" wx:key="key" class="cal-cell {{item.cls}}">
+        <text wx:if="{{item.day}}">{{item.day}}</text>
+        <view class="rate-bar" wx:if="{{item.bar}}"></view>
+      </view>
+    </view>
+
+    <view class="cal-legend">
+      <text class="lg-txt">少</text>
+      <view class="cell"></view>
+      <view class="cell l1"></view>
+      <view class="cell l2"></view>
+      <view class="cell l3"></view>
+      <view class="cell l4"></view>
+      <view class="cell l5"></view>
+      <text class="lg-txt">多</text>
+    </view>
+  </view>
+
+  <!-- ===== 习惯管理 ===== -->
+  <view class="section">
+    <view class="sec-head"><view class="sec-title">习惯管理</view></view>
+    <view wx:if="{{manageItems.length === 0}}" class="empty">暂无习惯，添加后这里会显示每个习惯的打卡次数。</view>
+    <view wx:else class="manage-list">
+      <view wx:for="{{manageItems}}" wx:key="id" class="manage-item">
+        <view class="habit-icon sm" style="background: {{item.bg}}">
+          <image class="icon-img" src="{{item.iconSrc}}" mode="aspectFit"></image>
+        </view>
+        <view class="manage-info">
+          <view class="manage-name">{{item.name}}</view>
+          <view class="manage-stats">本月 {{item.mc}} 次 · 累计 {{item.tc}} 次</view>
+        </view>
+        <view class="manage-actions">
+          <view class="tag-btn" hover-class="tag-hover" bindtap="openEdit" data-id="{{item.id}}">编辑</view>
+          <view class="tag-btn danger" hover-class="tag-hover" bindtap="confirmDel" data-id="{{item.id}}">删除</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- ===== 数据管理 ===== -->
+  <view class="section">
+    <view class="sec-head"><view class="sec-title">数据管理</view></view>
+    <view class="data-actions">
+      <view class="data-btn" hover-class="tag-hover" bindtap="exportData">
+        <view class="data-btn-icon">📤</view>
+        <view class="data-btn-text">导出备份</view>
+        <view class="data-btn-desc">复制数据到剪贴板</view>
+      </view>
+      <view class="data-btn" hover-class="tag-hover" bindtap="showImportBox">
+        <view class="data-btn-icon">📥</view>
+        <view class="data-btn-text">导入恢复</view>
+        <view class="data-btn-desc">从备份粘贴恢复</view>
+      </view>
+    </view>
+    <view class="data-stats">
+      共 {{manageItems.length}} 个习惯 · {{totalRecords}} 条打卡记录
+    </view>
+  </view>
+
+  <view class="footer">数据保存在本机，卸载或清缓存会丢失，建议定期导出备份</view>
+</view>
+
+<!-- ===== 添加 / 编辑习惯模态 ===== -->
+<view class="mask" wx:if="{{showModal}}" bindtap="closeModal">
+  <view class="modal" catchtap="noop">
+    <view class="modal-title">{{modalTitle}}</view>
+
+    <view class="field">
+      <view class="f-label">习惯名称</view>
+      <input class="f-input" value="{{inputName}}" bindinput="onNameInput" maxlength="18"/>
+    </view>
+
+    <view class="field">
+      <view class="f-label">选择图标</view>
+      <view class="icon-row">
+        <view
+          wx:for="{{iconOptions}}"
+          wx:key="key"
+          class="icon-opt {{item.sel ? 'sel' : ''}}"
+          bindtap="pickIcon"
+          data-key="{{item.key}}"
+          hover-class="tag-hover"
+        >
+          <image class="icon-img" src="{{item.src}}" mode="aspectFit"></image>
+        </view>
+      </view>
+    </view>
+
+    <view class="field">
+      <view class="f-label">选择颜色</view>
+      <view class="color-row">
+        <view
+          wx:for="{{colors}}"
+          wx:key="hex"
+          class="color-opt {{item.sel ? 'sel' : ''}}"
+          style="background: {{item.hex}}"
+          bindtap="pickColor"
+          data-hex="{{item.hex}}"
+        ></view>
+      </view>
+    </view>
+
+    <view class="modal-actions">
+      <view class="btn ghost" hover-class="tag-hover" bindtap="closeModal">取消</view>
+      <view class="btn primary" hover-class="tag-hover" bindtap="saveModal">保存</view>
+    </view>
+  </view>
+</view>
+
+<!-- ===== 导入数据模态 ===== -->
+<view class="mask" wx:if="{{showImportModal}}" bindtap="closeImportBox">
+  <view class="modal" catchtap="noop">
+    <view class="modal-title">导入数据</view>
+    <view class="field">
+      <view class="f-label">粘贴备份数据</view>
+      <textarea
+        class="f-textarea"
+        value="{{importText}}"
+        bindinput="onImportInput"
+        placeholder="将之前导出的备份数据粘贴到此处"
+        placeholder-class="ph"
+        maxlength="-1"
+        auto-height
+      ></textarea>
+    </view>
+    <view class="import-tip">导入会覆盖当前数据，请确认备份内容正确</view>
+    <view class="modal-actions">
+      <view class="btn ghost" hover-class="tag-hover" bindtap="closeImportBox">取消</view>
+      <view class="btn primary" hover-class="tag-hover" bindtap="confirmImport">确认导入</view>
+    </view>
+  </view>
+</view>
