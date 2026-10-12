@@ -1,5 +1,10 @@
 # Vue3 后台管理系统
 
+## 在线预览
+
+- 后台系统：https://zzyf0232.github.io/Vue3-admin-system/
+- 贪吃蛇游戏（Canvas · 原生 JS）：https://zzyf0232.github.io/Vue3-admin-system/snake-game/
+
 ## 项目简介
 
 一个基于 Vue3 + Vite + Pinia + Element Plus 的后台管理系统，包含登录鉴权、数据看板、用户管理（增删改查）、系统设置等模块。使用 Mock 数据，无需后端即可运行。
@@ -40,7 +45,8 @@ npm run build
 vue3-admin-system/
 ├── index.html                  # 入口 HTML
 ├── package.json                # 项目依赖配置
-├── vite.config.js              # Vite 配置（含 @ 别名）
+├── vite.config.js              # Vite 配置（含 @ 别名、Pages base 路径）
+├── .github/workflows/deploy.yml # GitHub Actions 自动部署
 └── src/
     ├── main.js                 # 应用入口
     ├── App.vue                 # 根组件
@@ -83,21 +89,4 @@ vue3-admin-system/
 - [x] 路由懒加载
 - [x] Axios 请求拦截器（自动携带 token）
 - [x] 响应式布局
-
-## 如何写进简历
-
-```
-【项目名称】Vue3 后台管理系统
-【技术栈】Vue3 + Vite + Pinia + Element Plus + ECharts
-【项目描述】
-一个通用的后台管理系统，包含登录鉴权、数据看板、用户管理、系统设置等模块，
-支持动态路由和权限控制，可快速复用在企业管理后台项目中。
-
-【技术亮点】
-- 使用 Vue3 Composition API + <script setup> 开发，代码结构清晰
-- 基于 Pinia 进行状态管理，封装用户信息和 token 的 localStorage 持久化存储
-- 对 Axios 进行二次封装，统一请求拦截（自动携带 token）和响应错误处理
-- 使用 Vue Router 实现路由懒加载，配置全局路由守卫实现登录鉴权
-- 使用 ECharts 实现数据可视化看板，支持折线图和饼图，窗口缩放自适应
-- 实现用户管理完整 CRUD，包含搜索、分页、表单校验、批量删除
-```
+- [x] GitHub Actions 自动部署到 GitHub Pages
