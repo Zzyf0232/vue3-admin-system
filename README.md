@@ -1,5 +1,7 @@
 # Vue3 后台管理系统
 
+![Deploy](https://github.com/Zzyf0232/vue3-admin-system/actions/workflows/deploy.yml/badge.svg)
+
 ## 在线预览
 
 - 后台系统：https://zzyf0232.github.io/Vue3-admin-system/
