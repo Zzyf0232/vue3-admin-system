@@ -38,7 +38,7 @@ npm run build
 
 ## 部署
 
-推送到 main 分支后，GitHub Actions 自动执行 npm ci + npm run build，并将 dist 部署到 GitHub Pages。
+推送到 main 分支后，GitHub Actions 自动执行 npm ci + npm run build，并将 dist 部署到 GitHub Pages。工作流定义见 `.github/workflows/deploy.yml`，也可在 Actions 页面手动触发。
 
 ## 默认账号
 
