@@ -36,6 +36,10 @@ npm run dev
 npm run build
 ```
 
+## 部署
+
+推送到 main 分支后，GitHub Actions 自动执行 npm ci + npm run build，并将 dist 部署到 GitHub Pages。
+
 ## 默认账号
 
 - 用户名：zhangyufei
