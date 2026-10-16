@@ -3,7 +3,7 @@ import vue from '@vitejs/plugin-vue'
 import { fileURLToPath, URL } from 'node:url'
 
 export default defineConfig({
-  base: '/Vue3-admin-system/',
+  base: '/vue3-admin-system/',
   plugins: [vue()],
   resolve: {
     alias: {
